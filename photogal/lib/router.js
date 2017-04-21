@@ -5,10 +5,10 @@ Router.configure({
 Router.map(function() {
 	this.route('photos', {
 		path:'/',
-		template:'photogal'
+		template:'photos'
 	});
 	this.route('addphotos', {
-		path:'/add'.
-		template: 'addphotos',
+		path:'/add',
+		template: 'addphotos'
 	});
 });
