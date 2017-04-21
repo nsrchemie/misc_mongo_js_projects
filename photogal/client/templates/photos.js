@@ -1,3 +1,10 @@
+Template.photos.helpers({
+	photos:()=>{
+		return Photos.find();
+	}
+});
+
+
 Template.addphotos.events({
 'submit .addphotoform': () => {
 	let file = $('#myphoto').get(0).files[0]
