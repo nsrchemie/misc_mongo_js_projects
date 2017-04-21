@@ -1,0 +1,106 @@
+NOTES
+
+db.createUser( { "user": "nick",
+"pwd": "1234",
+"roles": [ {role:"clusterAdmin", db: "admin"},
+{role: "readAnyDatabase", db: "admin" },
+"readWrite"] },
+{ w: "majority", wtimeout: 5000} )
+
+use admin
+show collections
+db.system.users.find().pretty()
+use customers
+db.createCollection('customers')
+db.customers.insert({first_name:"Joe", last_name: "Schmoe"})
+db.customers.find()
+db.customers.insert([
+
+	{first_name:"Bob", last_name:"ert"},
+	{first_name:"James", last_name:"Bond"},
+	{first_name:"Human",
+	last_name:"Being"}
+]
+)
+
+db.customers.insert({first_name:"Will",last_name:"Hurt",gender:"male",age:256})
+
+
+db.customers.insert({first_name:"youme",
+last_name:"meyou", gender:"male",DOB:new Date('Aug 2 1832')})
+
+db.customers.find({gender:"male"})
+db.customers.findOne({gender:"male"})
+UPDATING AND DELETING
+-----------------------------------
+db.customers.update({first_name:"Bob"},{$set:{last_name:"Goulet"}})
+
+db.customers.update({
+	_id: ObjectId("58f978c0857010650709cdbc")
+},{
+$set:{
+		gender:"male",
+		age: 32}})
+
+CONDITIONAL INSERT IN LIEU OF PROP
+-------
+db.customers.update({first_name:"Matthias"},{
+$set:
+{
+	first_name:"Matthias",
+	age:22
+}
+}, {upsert:true})
+
+db.customers.update({first_name:"Matthias"}, {$unset: {age: 1}})
+
+db.customers.update({first_name: "Bob"}, {$inc:{age: 1}})
+
+db.customers.remove({first_name: "Human"},true)
+
+db.customers.remove({age:{$gt:33}}, true)
+-----------------------------
+db.customers.insert({
+	first_name: "Graham",
+	last_name: "Greene",
+	age: 25,
+	address: {
+		street:"300 Oak Lane",
+		city: "Providence",
+		state: "Rhode Island",
+		zip: "12616"
+	},
+	phone: {
+		home:"125-333-7777",
+		work: "163-666-2222"
+	},
+	services: [
+		{
+			service_id: "hosting_linux",
+			service_name:"Linux Hosting"
+		},
+				{
+			service_id: "hosting_email",
+			service_name:"Email Hosting"
+		},
+				{
+			service_id: "domain_register",
+			service_name:"Domain Registration",
+			domain: "something.com"
+		}
+		],
+		services_count:3
+})
+
+db.customers.find({first_name: "Graham"}, {services:1})
+
+db.customers.find({first_name: "Graham"}, {"services.service_name": 1})
+
+db.customers.find({first_name: "Graham", "services.service_id":"domain_register"}, {"services.domain": 1})
+
+db.customers.update({first_name:"Graham"}, {$push:{
+	services:{
+		service_id:"hosting_windows",
+		service_name:"Windows Hosting"
+	}
+}})
