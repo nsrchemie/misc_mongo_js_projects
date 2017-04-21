@@ -3,6 +3,19 @@
 </body>
 
 <template name="layout">
-  {{> yield}}
   {{> navbar}}
+  <div class="container">
+
+        <div class="row">
+           {{> yield}}
+        </div>
+        <hr>
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Photos</p>
+                </div>
+            </div>
+        </footer>
+    </div>
 </template>
