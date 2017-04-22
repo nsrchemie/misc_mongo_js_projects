@@ -22,4 +22,25 @@ router.get('/:id', (req,res) => {
 	});
 });
 
+router.post('/', (req,res) => {
+	let invoice = req.body;
+	Invoice.addInvoice(invoice, (err,invoice) => {
+		if(err) {
+			res.send(err);
+		}
+			res.json(invoice);
+	});
+});
+
+router.put('/:id', (req,res) => {
+	let id = req.params.id;
+	let invoice = req.body;
+	Invoice.updateInvoice(id, invoice, {}, (err,invoice) => {
+		if(err) {
+			res.send(err);
+		}
+			res.json(invoice);
+	});
+});
+
 module.exports = router;
