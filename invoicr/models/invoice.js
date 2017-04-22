@@ -56,3 +56,10 @@ module.exports.updateInvoice = (id, invoice, options, callback) => {
 	}
 	Invoice.findOneAndUpdate(query, update, options,callback);
 }
+
+//DELETE invoice
+
+module.exports.removeInvoice = (id, callback) => {
+	let query = {_id:id};
+	Invoice.remove(query, callback);
+}

@@ -81,3 +81,9 @@ module.exports.updateCustomer = (id, customer, options, callback) => {
 	}
 	Customer.findOneAndUpdate(query, update, options, callback);
 }
+
+//Remove Customer
+module.exports.removeCustomer = (id, callback) => {
+	let query = {_id:id};
+	Customer.remove(query, callback);
+}

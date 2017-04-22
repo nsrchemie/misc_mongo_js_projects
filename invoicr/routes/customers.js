@@ -44,4 +44,15 @@ router.put('/:id', (req,res) => {
 			res.json(customer);
 	});
 });
+//Remove Customer
+router.delete('/:id', (req,res) => {
+	let id = req.params.id;
+	let customer = req.body;
+	Customer.removeCustomer(id, (err,customer) => {
+		if(err) {
+			res.send(err);
+		}
+			res.json(customer);
+	});
+});
 module.exports = router;
