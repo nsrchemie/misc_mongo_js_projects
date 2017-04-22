@@ -32,4 +32,16 @@ router.post('/', (req,res) => {
 			res.json(customer);
 	});
 });
+
+//Update Customer
+router.put('/:id', (req,res) => {
+	let id = req.params.id;
+	let customer = req.body;
+	Customer.updateCustomer(id, customer, {}, (err,customer) => {
+		if(err) {
+			res.send(err);
+		}
+			res.json(customer);
+	});
+});
 module.exports = router;

@@ -59,6 +59,25 @@ module.exports.addCustomer = (customer, callback) => {
 			state: customer.address.state,
 			zip: customer.address.zip
 		}
-	};
+	}
 	Customer.create(add,callback);
+}
+
+module.exports.updateCustomer = (id, customer, options, callback) => {
+	let query = {_id: id};
+	let update = {
+		first_name: customer.first_name,
+		last_name: customer.last_name,
+		company: customer.company,
+		logo_url: customer.logo_url,
+		email: customer.email,
+		phone: customer.phone,
+		address: {
+			street: customer.address.street,
+			city: customer.address.city,
+			state: customer.address.state,
+			zip: customer.address.zip
+		}
+	}
+	Customer.findOneAndUpdate(query, update, options, callback);
 }
