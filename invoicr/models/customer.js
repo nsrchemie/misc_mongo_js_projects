@@ -43,3 +43,22 @@ module.exports.getCustomers = (callback,limit) => {
 module.exports.getCustomerById = (id,callback) => {
 	Customer.findById(id,callback)
 }
+
+//Add Customer POST
+module.exports.addCustomer = (customer, callback) => {
+	let add = {
+		first_name: customer.first_name,
+		last_name: customer.last_name,
+		company: customer.company,
+		logo_url: customer.logo_url,
+		email: customer.email,
+		phone: customer.phone,
+		address: {
+			street: customer.address.street,
+			city: customer.address.city,
+			state: customer.address.state,
+			zip: customer.address.zip
+		}
+	};
+	Customer.create(add,callback);
+}

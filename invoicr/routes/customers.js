@@ -21,4 +21,15 @@ router.get('/:id', (req,res) => {
 			res.json(customer);
 	});
 });
+
+//Add customer POST
+router.post('/', (req,res) => {
+	let customer = req.body;
+	Customer.addCustomer(customer, (err,customer) => {
+		if(err) {
+			res.send(err);
+		}
+			res.json(customer);
+	});
+});
 module.exports = router;
