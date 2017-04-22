@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const invoiceSchema = mongoose.Schema({
-		customer_id: {
+		customer: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'Customer'
 		},
@@ -32,9 +32,9 @@ module.exports.getInvoices = (callback,limit) => {
 }
 //Get one invoice
 module.exports.getInvoiceById = (id,callback) => {
-	Invoice.findbyId(id,callback)
+	Invoice.findById(id,callback)
 }
-
+//POST create an invoice
 module.exports.addInvoice = (invoice,callback) => {
 	let add = {
 		customer: invoice.customer_id,
@@ -45,7 +45,7 @@ module.exports.addInvoice = (invoice,callback) => {
 	}
 	Invoice.create(add,callback);
 }
-
+//PUT update an invoice
 module.exports.updateInvoice = (id, invoice, options, callback) => {
 	let query = {_id: id};
 	let update = {
@@ -54,5 +54,5 @@ module.exports.updateInvoice = (id, invoice, options, callback) => {
 		due: invoice.due,
 		status: invoice.status
 	}
-	Invoice.findbyId(query, update, options,callback);
+	Invoice.findOneAndUpdate(query, update, options,callback);
 }
