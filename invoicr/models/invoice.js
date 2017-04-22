@@ -26,6 +26,11 @@ const invoiceSchema = mongoose.Schema({
 
 const Invoice = module.exports = mongoose.model('Invoice', invoiceSchema);
 
+//GET all invoices
 module.exports.getInvoices = (callback,limit) => {
 	Invoice.find(callback).limit(limit).sort([['createdAt', 'descending']]);
+}
+//Get one invoice
+module.exports.getInvoiceById = (id,callback) => {
+	Invoice.findbyId(id,callback)
 }

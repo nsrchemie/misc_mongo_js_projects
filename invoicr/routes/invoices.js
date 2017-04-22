@@ -13,4 +13,13 @@ router.get('/', (req,res) => {
 	});
 });
 
+router.get('/:id', (req,res) => {
+	Invoice.getInvoiceById(req.params.id, (err,invoice) => {
+		if(err) {
+			res.send(err);
+		}
+			res.json(invoice);
+	});
+});
+
 module.exports = router;
