@@ -61,3 +61,28 @@ To add workplace to all
 db.users.update({}, {$set:{"Company":"WorkCorp"}}, {multi:true})
 To remove field from all documents
 db.users.update({}, {$unset:{"Company":""}},{multi:true})
+------------------------
+delete documents
+delete documents where Country = "DE"
+db.users.remove({"Country":"DE"})
+to verify
+db.users.find({"Country":"DE"})
+to delete all documents
+db.users.remove({})
+to drop collection
+db.users.drop()
+------------------------
+find female users from China
+db.users.find({
+		"Gender":"F",
+		$or:[{"Country":"CH"}]})
+find female users from China or France
+db.users.find({
+		"Gender":"F",
+		$or:[{"Country":"CH"},{"Country":"FR"}]})
+to count the number of female users in CH or FR
+db.users.find({
+		"Gender":"F",
+		$or:[{"Country":"CH"},{"Country":"FR"}]}).count()
+to count all documents
+db.users.find().count()
