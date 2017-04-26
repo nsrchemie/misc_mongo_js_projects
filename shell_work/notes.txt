@@ -28,6 +28,12 @@ user3 = {"FName": "Olivia",
 		"Gender" :"F",
 		"Country" : "CH"
 		}
+user4 = {"FName": "Juliette",
+		"LName": "Garboe",
+		"Age": 28,
+		"Gender" :"F",
+		"Country" : "FR"
+		}
 
 db.users.insert(user1)
 db.user.insert(user2)
@@ -86,3 +92,34 @@ db.users.find({
 		$or:[{"Country":"CH"},{"Country":"FR"}]}).count()
 to count all documents
 db.users.find().count()
+------------------------
+Search documents for selectors BUT only show certain fields
+to display FName and Age of Female users
+db.users.find({"Gender":"F"}, {"FName":1,"Age":1})
+------------------------------
+to sort records by descending age for females
+db.users.find({"Gender":"F"}, {"Name":1,"Age":1}).sort({"Age":-1})
+---------------------------
+to return a set number of records, use limit
+db.users.find({
+		"Gender":"F",
+		$or:[{"Country":"CH"},
+			{"Country":"FR"}]}).limit(2)
+--------------------------
+to do the same as above BUT skip over the first two and grab the 3rd
+db.users.find({
+		"Gender":"F",
+		$or:[{"Country":"CH"},
+			{"Country":"FR"}]}).limit(1).skip(2)
+----------------------------
+findone can be used to return a single document
+db.users.findOne({"Gender":"F"}, {"FName":1, "Country":"FR"})
+-------------------------------
+save find results as a cursor object in a variable, and iterate
+var fr = db.users.find({"Country":"FR"})
+The above var unbinds after ONE use
+while (fr.hasNext()) 
+	printjson(fr.next())
+can also index e.g.
+var fr = db.users.find({"Country":"FR"})
+printjson(fr[0])
