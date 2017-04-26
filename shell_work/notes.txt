@@ -1,0 +1,8 @@
+mongoimport --host localhost --db mydb --collection importeg --type csv --file ./exporteg.csv --headerline
+mongo
+use mydb
+show collections
+db.importeg.find().pretty()
+db
+
+
