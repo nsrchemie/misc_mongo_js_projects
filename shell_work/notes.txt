@@ -5,4 +5,59 @@ show collections
 db.importeg.find().pretty()
 db
 
+------------------
+use mydbpoc
 
+user1 = {"FName": "Bob",
+		"LName": "Smith",
+		"Age": 30,
+		"Gender" :"M",
+		"Country" : "US"
+		}
+
+user2 = {"FName": "Jane",
+		"LName": "Doe",
+		"Age": 21,
+		"Gender" :"F",
+		"Country" : "DE"
+		}
+
+user3 = {"FName": "Olivia",
+		"LName": "Fielding",
+		"Age": 28,
+		"Gender" :"F",
+		"Country" : "CH"
+		}
+
+db.users.insert(user1)
+db.user.insert(user2)
+Could also have created collection with statement:
+db.createCollection("users")
+
+Can insert by explicit id
+
+db.users.insert({
+	"_id":10,
+	"Name":"explicit_id"
+})
+
+
+
+Updating characteristics
+
+e.g. For the first female, they are from FR
+db.users.update(
+	{"Gender":"F"},
+	{$set:{"Country":"FR"}
+})
+To set ALL females, add {multi:true}
+db.users.update(
+	{"Gender":"F"},
+	{$set:{"Country":"FR"}},
+	{multi:true})
+
+Using a nonexistent field with $set will create the field in the document(s)
+To add workplace to all
+db.users.update({}, {$set:{"Company":"WorkCorp"}}, {multi:true})
+To remove field from all documents
+db.users.update({}, {$unset:{"Company":""}},{multi:true})
